@@ -39,7 +39,7 @@ const FarmerLoginScreen = () => {
     Alert.alert('Success', 'Login successful!');
     console.log('Login data:', formData);
     console.log('Remember me:', rememberMe);
-     router.push('Home');
+     router.push('farmersdashboard');
     
     //API call here
   };
@@ -57,7 +57,7 @@ const FarmerLoginScreen = () => {
 
   const handleSignUp = () => {
     
-    router.push('buyersignup');
+    router.push('farmersignup');
   };
 
   return (
@@ -337,14 +337,14 @@ const styles = StyleSheet.create({
   },
   forgotPasswordText: {
     fontSize: 14,
-    color: '#2D5A3D',
+    color: '#BA1A20',
     fontWeight: '600',
   },
   loginButton: {
     backgroundColor: '#2D5A3D',
     paddingHorizontal: 32,
     paddingVertical: 16,
-    borderRadius: 25,
+    borderRadius: 8,
     alignItems: 'center',
     marginBottom: 16,
     shadowColor: '#000',
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#E9ECEF',
-    borderRadius: 25,
+    borderRadius: 8,
     paddingHorizontal: 32,
     paddingVertical: 14,
     backgroundColor: '#fff',

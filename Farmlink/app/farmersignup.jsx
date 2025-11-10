@@ -36,12 +36,55 @@ const FarmerSignUpScreen = () => {
     }));
   };
 
+  const validateForm = () => {
+    if (!formData.email.trim()) {
+      Alert.alert('Error', 'Please enter your email address');
+      return false;
+    }
+
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      Alert.alert('Error', 'Please enter a valid email address');
+      return false;
+    }
+
+    if (!formData.password) {
+      Alert.alert('Error', 'Please create a password');
+      return false;
+    }
+
+    if (formData.password.length < 6) {
+      Alert.alert('Error', 'Password must be at least 6 characters long');
+      return false;
+    }
+
+    if (!formData.confirmPassword) {
+      Alert.alert('Error', 'Please confirm your password');
+      return false;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
+      return false;
+    }
+
+    if (!agreedToTerms) {
+      Alert.alert('Error', 'Please agree to the Terms of Service and Privacy Policy');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleCreateAccount = () => {
-    Alert.alert('Success', 'Account Created successfully!');
-    console.log('Form data:', formData);
-    console.log('Agreed to terms:', agreedToTerms);
-    console.log('Receive updates:', receiveUpdates);
-    router.push('farmerinfo');
+    if (validateForm()) {
+      Alert.alert('Success', 'Account created successfully!');
+      console.log('Form data:', formData);
+      console.log('Agreed to terms:', agreedToTerms);
+      console.log('Receive updates:', receiveUpdates);
+      router.push('farmerinfo');
+    }
   };
 
   const handleBack = () => {
@@ -62,25 +105,28 @@ const FarmerSignUpScreen = () => {
       
       
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-          <Ionicons name="arrow-back" size={24} color="#2D5A3D" />
-        </TouchableOpacity>
         
-        <View style={styles.logoContainer}>
-          <View style={styles.logo}>
-            <Image 
-              source={require('../assets/images/logo.png')}
-              style={styles.logoImage} 
-              resizeMode="contain"
-            />   
-          </View>
-          <View style={styles.headerText}>
-            <Text style={styles.appName}>Farmlink</Text>
-            <Text style={styles.country}>Nigeria</Text>
+        <View style={styles.topSection}>
+          <View style={styles.logoContainer}>
+            <View style={styles.logo}>
+              <Image 
+                source={require('../assets/images/logo.png')}
+                style={styles.logoImage} 
+                resizeMode="contain"
+              />   
+            </View>
+            <View style={styles.headerText}>
+              <Text style={styles.appName}>Farmlink</Text>
+              <Text style={styles.country}>Nigeria</Text>
+            </View>
           </View>
         </View>
         
-        <View style={styles.headerSpacer} />
+       
+        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+          <Ionicons name="arrow-back" size={24} color="#2D5A3D" />
+         
+        </TouchableOpacity>
       </View>
 
       <KeyboardAvoidingView 
@@ -92,7 +138,7 @@ const FarmerSignUpScreen = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
         >
-          
+         
           <View style={styles.titleSection}>
             <Text style={styles.title}>Create Your Account</Text>
             <Text style={styles.subtitle}>
@@ -100,7 +146,7 @@ const FarmerSignUpScreen = () => {
             </Text>
           </View>
 
-     
+       
           <View style={styles.formContainer}>
             
             <View style={styles.inputGroup}>
@@ -116,9 +162,9 @@ const FarmerSignUpScreen = () => {
               />
             </View>
 
-          
+         
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Password</Text>
+              <Text style={styles.label}>Password *</Text>
               <View style={styles.passwordInputContainer}>
                 <TextInput
                   style={styles.passwordInput}
@@ -141,7 +187,6 @@ const FarmerSignUpScreen = () => {
               </View>
             </View>
 
-         
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Confirm Password *</Text>
               <View style={styles.passwordInputContainer}>
@@ -166,6 +211,7 @@ const FarmerSignUpScreen = () => {
               </View>
             </View>
 
+           
             <View style={styles.checkboxGroup}>
               <View style={styles.checkboxContainer}>
                 <TouchableOpacity 
@@ -180,7 +226,7 @@ const FarmerSignUpScreen = () => {
                   )}
                 </TouchableOpacity>
                 <Text style={styles.checkboxLabel}>
-                  I agree to the <Text style={styles.linkText}>Terms of Service</Text> and <Text style={styles.linkText}>Privacy Policy</Text>
+                  I agree to the <Text style={styles.linkText}>Terms of Service</Text> and <Text style={styles.linkText}>Privacy Policy</Text> *
                 </Text>
               </View>
 
@@ -205,19 +251,27 @@ const FarmerSignUpScreen = () => {
           
             <View style={styles.divider} />
 
-        
-            <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
+            
+            <TouchableOpacity 
+              style={[
+                styles.createAccountButton,
+                (!formData.email || !formData.password || !formData.confirmPassword || !agreedToTerms) && 
+                styles.createAccountButtonDisabled
+              ]} 
+              onPress={handleCreateAccount}
+              disabled={!formData.email || !formData.password || !formData.confirmPassword || !agreedToTerms}
+            >
               <Text style={styles.createAccountText}>Create Account</Text>
             </TouchableOpacity>
 
-        
+         
             <View style={styles.orContainer}>
               <View style={styles.orLine} />
               <Text style={styles.orText}>OR</Text>
               <View style={styles.orLine} />
             </View>
 
-            
+          
             <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignUp}>
               <Image 
                 source={require('../assets/images/playstore.png')}
@@ -247,26 +301,16 @@ const styles = StyleSheet.create({
   },
   
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    
-    borderBottomColor: '#E9ECEF',
-  },
-  backButton: {
-    padding: 8,
-     bottom: -30,
-
-    
+    paddingTop: 16,
+    paddingBottom: 12,
+    },
+  topSection: {
+    marginBottom: 16,
   },
   logoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    right:30
   },
   logo: {
     width: 40,
@@ -274,16 +318,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 8,
+    marginRight: 10, 
   },
   logoImage: {
-    width: 150,
-    height: 150,
-    left:50,
+    width: 201,
+    height: 201,
+    left: 40,
     top:15
   },
   headerText: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    left:-10,
+    top:-4
   },
   appName: {
     fontSize: 20,
@@ -295,8 +341,18 @@ const styles = StyleSheet.create({
     color: '#007A44',
     fontWeight: '500'
   },
-  headerSpacer: {
-    width: 40, 
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12, 
+    alignSelf: 'flex-start',
+    marginLeft: -8, 
+  },
+  backText: {
+    fontSize: 16,
+    color: '#2D5A3D',
+    marginLeft: 8,
+    fontWeight: '500',
   },
   keyboardAvoid: {
     flex: 1,
@@ -423,6 +479,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 3,
+  },
+  createAccountButtonDisabled: {
+    backgroundColor: '#A0A0A0',
+    opacity: 0.6,
   },
   createAccountText: {
     fontSize: 16,

@@ -90,7 +90,7 @@ const BuyerSignUpScreen = () => {
   
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-          <Ionicons name="arrow-back" size={24} color="#2D5A3D" />
+          
         </TouchableOpacity>
         
         <View style={styles.logoContainer}>
@@ -276,8 +276,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E9ECEF',
+   
   },
   backButton: {
     padding: 8,
@@ -429,7 +428,7 @@ country: {
     paddingVertical: 15,
     borderWidth: 2,
     borderColor: '#2D5A3D',
-    borderRadius: 25,
+    borderRadius: 8,
     minWidth: 120,
     alignItems: 'center',
   },
@@ -442,7 +441,7 @@ country: {
     paddingHorizontal: 32,
     paddingVertical: 15,
     backgroundColor: '#2D5A3D',
-    borderRadius: 25,
+    borderRadius: 8,
     minWidth: 120,
     alignItems: 'center',
     shadowColor: '#000',

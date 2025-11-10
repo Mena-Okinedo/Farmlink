@@ -14,9 +14,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 const { width } = Dimensions.get('window');
-const router = useRouter();
+
 
 const FarmerDashboardScreen = () => {
+
+  const router = useRouter();
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#fff" />
@@ -81,7 +84,7 @@ const FarmerDashboardScreen = () => {
 
          
           <View style={styles.alertBanner}>
-            <Ionicons name="warning" size={20} color="#FFA500" />
+            <Ionicons name="warning" size={20} color='#2E7D32' />
             <Text style={styles.alertText}>5 products are low in stock</Text>
            
           </View>
@@ -134,52 +137,31 @@ const FarmerDashboardScreen = () => {
             <View style={styles.actionsGrid}>
               <TouchableOpacity style={styles.actionButton}>
                 <View style={styles.actionIcon}>
-                  <Ionicons name="add-circle" size={24} color="#2D5A3D" />
+                  <Ionicons name="add-circle" size={24} color="#000" />
                 </View>
                 <Text style={styles.actionText}>Add New Product</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.actionButton}>
                 <View style={styles.actionIcon}>
-                  <Ionicons name="people" size={24} color="#2D5A3D" />
+                  <Ionicons name="people" size={24} color="#000" />
                 </View>
                 <Text style={styles.actionText}>View verified buyers</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.actionButton}>
                 <View style={styles.actionIcon}>
-                  <Ionicons name="chatbubble" size={24} color="#2D5A3D" />
+                  <Ionicons name="chatbubble" size={24} color="#000" />
                 </View>
                 <Text style={styles.actionText}>View Messages</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.actionButton}>
                 <View style={styles.actionIcon}>
-                  <Ionicons name="cube" size={24} color="#2D5A3D" />
+                  <Ionicons name="cube" size={24} color="#000" />
                 </View>
                 <Text style={styles.actionText}>Track Orders</Text>
               </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={styles.extraContent}>
-            <Text style={styles.extraTitle}>Recent Activity</Text>
-            <View style={styles.activityList}>
-              <View style={styles.activityItem}>
-                <Ionicons name="cart" size={20} color="#2D5A3D" />
-                <Text style={styles.activityText}>New order from FreshMart</Text>
-                <Text style={styles.activityTime}>2 hours ago</Text>
-              </View>
-              <View style={styles.activityItem}>
-                <Ionicons name="chatbubble" size={20} color="#2D5A3D" />
-                <Text style={styles.activityText}>Message from Agro Supplies</Text>
-                <Text style={styles.activityTime}>5 hours ago</Text>
-              </View>
-              <View style={styles.activityItem}>
-                <Ionicons name="warning" size={20} color="#FFA500" />
-                <Text style={styles.activityText}>Tomatoes running low</Text>
-                <Text style={styles.activityTime}>1 day ago</Text>
-              </View>
             </View>
           </View>
 
@@ -199,12 +181,14 @@ const FarmerDashboardScreen = () => {
           <Text style={styles.navItemText}>Market</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity style={styles.navItem}
+        onPress={() => router.push('farmerorderstatus')}>
           <Ionicons name="cart" size={24} color="#999" />
           <Text style={styles.navItemText}>Orders</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity style={styles.navItem} 
+          onPress={() => router.push('farmerprofile')} >
           <Ionicons name="person" size={24} color="#999" />
           <Text style={styles.navItemText}>Profile</Text>
         </TouchableOpacity>
@@ -216,7 +200,7 @@ const FarmerDashboardScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#CBFFC2',
   },
   content: {
     flex: 1,
@@ -321,19 +305,19 @@ const styles = StyleSheet.create({
   alertBanner: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFF3E0',
+    backgroundColor: '#B5F486',
     paddingHorizontal: 20,
     paddingVertical: 12,
     marginHorizontal: 20,
     marginTop: 8,
     borderRadius: 8,
     borderLeftWidth: 4,
-    borderLeftColor: '#FFA500',
+    borderLeftColor: '#2E7D32',
   },
   alertText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#E65100',
+    color: '#2E7D32',
     marginLeft: 8,
    
   },
@@ -364,7 +348,7 @@ const styles = StyleSheet.create({
   },
   statCard: {
     width: (width - 56) / 2,
-    backgroundColor: '#fff',
+    backgroundColor: '#D9D9D9A1',
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
@@ -380,7 +364,7 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#2D5A3D',
+    color: '#000',
     marginBottom: 4,
   },
   statLabel: {
@@ -435,7 +419,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#E8F5E8',
+
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 8,
@@ -493,7 +477,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#A3F69C',
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderTopWidth: 1,

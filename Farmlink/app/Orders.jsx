@@ -16,32 +16,33 @@ export default function OrdersScreen({  }) {
     {
       id: 'F1-2415',
       status: 'In Transit',
-      statusColor: '#FFA500',
-      backgroundColor: '#FFF3E0',
+      statusColor: '#FFFFFF',
+      backgroundColor: '#A8B3C4',
       trackText: 'Track',
       product: 'Fresh Tomatoes (3 Baskets)',
       date: 'October 25th, 2025',
-      icon: '🍅'
+    
     },
-    {
+    
+      {
       id: 'F1-2400',
       status: 'Delivered',
-      statusColor: '#2E7D32',
-      backgroundColor: '#E8F5E8',
+      statusColor: '#ffff',
+      backgroundColor: '#7FBB55',
       trackText: 'Track',
       product: 'Chicken Eggs (5 Crates)',
       date: 'October 20th, 2025',
-      icon: '🥚'
+      
     },
     {
       id: 'F1-2315',
       status: 'Delivered',
-      statusColor: '#2E7D32',
-      backgroundColor: '#E8F5E8',
+      statusColor: '#ffff',
+      backgroundColor: '#7FBB55',
       trackText: 'Track',
       product: 'Chicken Eggs (5 Crates)',
       date: 'October 18th, 2025',
-      icon: '🥚'
+      
     }
   ];
   const router = useRouter();

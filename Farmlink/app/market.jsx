@@ -187,7 +187,7 @@ export default function MarketScreen() {
   const navigationItems = [
     { id: 'Home', icon: 'home', label: 'Home' },
     { id: 'Market', icon: 'storefront', label: 'Market' },
-    { id: 'Orders', icon: 'shopping-cart', label: 'Orders' },
+    { id: 'Orders', icon: 'cart-outline', label: 'Orders' },
     { id: 'Profile', icon: 'person', label: 'Profile' },
   ];
 
@@ -344,12 +344,16 @@ export default function MarketScreen() {
             onPress={() => {
               if (item.id === 'Home') {
                 router.push('Home');
+              } else if(item.id ==='Profile'){
+                router.push('buyerprofile')
+                } else if(item.id ==='Orders'){
+                router.push('Orders')
               } else {
                 setActiveTab(item.id);
               }
             }}
           >
-            <MaterialIcons
+            <Ionicons
               name={item.icon}
               size={24}
               color={activeTab === item.id ? '#2E7D32' : '#666'}
@@ -648,15 +652,11 @@ cartBadge: {
   },
   bottomNavigation: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#A3F69C',
     borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
+    borderTopColor: '#A3F69C',
     paddingHorizontal: 10,
-    paddingVertical: 10,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    paddingVertical: 8,
   },
   navItem: {
     flex: 1,

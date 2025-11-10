@@ -111,7 +111,7 @@ export default function FarmLinkScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.actionButton}
-            onPress={() => navigation.navigate('verifiedSellers')}>
+            onPress={() => router.push('verifiedSellers')}>
               <View style={styles.actionIcon}>
                 <MaterialIcons name="verified-user" size={24} color="#2E7D32" />
               </View>
@@ -119,7 +119,7 @@ export default function FarmLinkScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.actionButton}
-            onPress={() => navigation.navigate('recentOrder')}>
+            onPress={() => router.push('recentOrder')}>
               <View style={styles.actionIcon}>
                 <MaterialCommunityIcons name="package-variant-closed" size={24} color="#2E7D32" />
               </View>
@@ -146,7 +146,7 @@ export default function FarmLinkScreen() {
         <View style={styles.section}>
           <View style={styles.featuresHeader}>
             <Text style={styles.sectionTitle}>Featured Products</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push('market')}>
               <Text style={styles.seeAllText}>See all</Text>
             </TouchableOpacity>
           </View>
@@ -238,7 +238,9 @@ export default function FarmLinkScreen() {
 
         <TouchableOpacity 
           style={styles.navItem}
-          onPress={() => setActiveTab('Profile')}
+          onPress={() =>{ setActiveTab('Profile')
+          router.push('buyerprofile')
+          }}
         >
           <Ionicons 
             name={activeTab === 'Profile' ? 'profile' : 'person'} 
@@ -271,6 +273,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
+    backgroundColor:"#CBFFC2"
   },
   logoContainer: {
     flexDirection: 'row',
@@ -297,7 +300,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   headerText: {
-     marginRight:10
+     marginRight:10,
+    
     
   },
   appName: {
@@ -311,18 +315,17 @@ const styles = StyleSheet.create({
     color: '#007A44',
     fontWeight: 500
   },
-  time: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000',
-  },
+ 
   content: {
     flex: 1,
     paddingHorizontal: 20,
+   
   },
   welcomeSection: {
     marginTop: 20,
     marginBottom: 15,
+   
+   
   },
   welcomeText: {
     fontSize: 20,
@@ -530,9 +533,9 @@ const styles = StyleSheet.create({
   },
   bottomNavigation: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#A3F69C',
     borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
+    borderTopColor: '#A3F69C',
     paddingHorizontal: 10,
     paddingVertical: 8,
   },

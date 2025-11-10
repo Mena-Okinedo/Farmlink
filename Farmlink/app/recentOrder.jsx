@@ -9,42 +9,42 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { router, useRouter } from 'expo-router';
+import { router } from 'expo-router';
 
 export default function OrdersScreen({  }) {
   const orders = [
     {
       id: 'F1-2415',
       status: 'In Transit',
-      statusColor: '#FFA500',
-      backgroundColor: '#FFF3E0',
+      statusColor: '#FFFFFF',
+      backgroundColor: '#A8B3C4',
       trackText: 'Track',
       product: 'Fresh Tomatoes (3 Baskets)',
       date: 'October 25th, 2025',
-      icon: '🍅'
+    
     },
     {
       id: 'F1-2400',
       status: 'Delivered',
-      statusColor: '#2E7D32',
-      backgroundColor: '#E8F5E8',
+      statusColor: '#ffff',
+      backgroundColor: '#7FBB55',
       trackText: 'Track',
       product: 'Chicken Eggs (5 Crates)',
       date: 'October 20th, 2025',
-      icon: '🥚'
+      
     },
     {
       id: 'F1-2315',
       status: 'Delivered',
-      statusColor: '#2E7D32',
-      backgroundColor: '#E8F5E8',
+      statusColor: '#ffff',
+      backgroundColor: '#7FBB55',
       trackText: 'Track',
       product: 'Chicken Eggs (5 Crates)',
       date: 'October 18th, 2025',
-      icon: '🥚'
+      
     }
   ];
-  const navigation =useNavigation();
+  
  const goBackToHome = () => {
     router.push('Home');
   };
@@ -186,12 +186,12 @@ const styles = StyleSheet.create({
   trackButton: {
     paddingHorizontal: 16,
     paddingVertical: 6,
-    backgroundColor: '#2E7D32',
-    borderRadius: 6,
+    
+  
   },
   trackText: {
     fontSize: 14,
-    color: '#fff',
+    color: '#000',
     fontWeight: '600',
   },
   orderDetails: {

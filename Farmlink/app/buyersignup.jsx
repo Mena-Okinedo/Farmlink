@@ -9,7 +9,6 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
-  CheckBox,
   Image,
   Alert
 } from 'react-native';
@@ -28,7 +27,7 @@ const BuyerSignUpScreen = () => {
   const [receiveUpdates, setReceiveUpdates] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-   const router = useRouter();
+  const router = useRouter();
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -37,54 +36,97 @@ const BuyerSignUpScreen = () => {
     }));
   };
 
-  const handleCreateAccount = () => {
-    Alert.alert('Sucess', 'Account Created successful!');
-    
-    console.log('Form data:', formData);
-    console.log('Agreed to terms:', agreedToTerms);
-    console.log('Receive updates:', receiveUpdates);
-     router.push('buyerinfo')
-    // API call here
+  const validateForm = () => {
+    if (!formData.email.trim()) {
+      Alert.alert('Error', 'Please enter your email address');
+      return false;
+    }
+
+   
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      Alert.alert('Error', 'Please enter a valid email address');
+      return false;
+    }
+
+    if (!formData.password) {
+      Alert.alert('Error', 'Please create a password');
+      return false;
+    }
+
+    if (formData.password.length < 6) {
+      Alert.alert('Error', 'Password must be at least 6 characters long');
+      return false;
+    }
+
+    if (!formData.confirmPassword) {
+      Alert.alert('Error', 'Please confirm your password');
+      return false;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
+      return false;
+    }
+
+    if (!agreedToTerms) {
+      Alert.alert('Error', 'Please agree to the Terms of Service and Privacy Policy');
+      return false;
+    }
+
+    return true;
   };
 
-  //const handleBack = () => {
-    //router.push('index');
-  //};
+  const handleCreateAccount = () => {
+    if (validateForm()) {
+      Alert.alert('Success', 'Account created successfully!');
+      console.log('Form data:', formData);
+      console.log('Agreed to terms:', agreedToTerms);
+      console.log('Receive updates:', receiveUpdates);
+      router.push('buyerinfo');
+    }
+  };
+
+  const handleBack = () => {
+    router.back(); 
+  };
 
   const handleLogin = () => {
-   router.push('buyerlogin');
+    router.push('buyerlogin');
   };
 
-  
-
   const handleGoogleSignUp = () => {
-    
     console.log('Google sign up clicked');
   };
 
-  
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       
-    
-      <View style ={styles.header} >
-        <TouchableOpacity style={styles.backButton} onPress={() => router.push('index')}>
-          <Ionicons name="arrow-back" size={24} color="#2D5A3D" />
-        </TouchableOpacity>
+     
+      <View style={styles.header}>
         
-        <View style={styles.logoContainer}>
-          <View style={styles.logo}>
-             <Image source = {require ('../assets/images/logo.png')}
-                      style={styles.logoImage} resizeMode="contain"/>   
-          </View >
-          <View style={styles.headerText}>
-          <Text style={styles.appName}>Framlink</Text>
-          <Text style={styles.country}>Nigeria</Text>
-      </View>
+        <View style={styles.topSection}>
+          <View style={styles.logoContainer}>
+            <View style={styles.logo}>
+              <Image 
+                source={require('../assets/images/logo.png')}
+                style={styles.logoImage} 
+                resizeMode="contain"
+              />   
+            </View>
+            <View style={styles.headerText}>
+              <Text style={styles.appName}>Farmlink</Text>
+              <Text style={styles.country}>Nigeria</Text>
+            </View>
+          </View>
         </View>
         
-        <View style={styles.headerSpacer} />
+      
+        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+          <Ionicons name="arrow-back" size={24} color="#2D5A3D" />
+         
+        </TouchableOpacity>
       </View>
 
       <KeyboardAvoidingView 
@@ -96,7 +138,7 @@ const BuyerSignUpScreen = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
         >
-          
+         
           <View style={styles.titleSection}>
             <Text style={styles.title}>Create Your Account</Text>
             <Text style={styles.subtitle}>
@@ -104,8 +146,9 @@ const BuyerSignUpScreen = () => {
             </Text>
           </View>
 
+      
           <View style={styles.formContainer}>
-           
+         
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Email Address *</Text>
               <TextInput
@@ -119,9 +162,9 @@ const BuyerSignUpScreen = () => {
               />
             </View>
 
-            
+           
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Password</Text>
+              <Text style={styles.label}>Password *</Text>
               <View style={styles.passwordInputContainer}>
                 <TextInput
                   style={styles.passwordInput}
@@ -144,7 +187,7 @@ const BuyerSignUpScreen = () => {
               </View>
             </View>
 
-         
+        
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Confirm Password *</Text>
               <View style={styles.passwordInputContainer}>
@@ -169,7 +212,7 @@ const BuyerSignUpScreen = () => {
               </View>
             </View>
 
-            
+           
             <View style={styles.checkboxGroup}>
               <View style={styles.checkboxContainer}>
                 <TouchableOpacity 
@@ -184,7 +227,7 @@ const BuyerSignUpScreen = () => {
                   )}
                 </TouchableOpacity>
                 <Text style={styles.checkboxLabel}>
-                  I agree to the <Text style={styles.linkText}>Terms of Service</Text> and <Text style={styles.linkText}>Privacy Policy</Text>
+                  I agree to the <Text style={styles.linkText}>Terms of Service</Text> and <Text style={styles.linkText}>Privacy Policy</Text> *
                 </Text>
               </View>
 
@@ -206,30 +249,39 @@ const BuyerSignUpScreen = () => {
               </View>
             </View>
 
-            
+          
             <View style={styles.divider} />
 
- 
-            <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}
+         
+            <TouchableOpacity 
+              style={[
+                styles.createAccountButton,
+                (!formData.email || !formData.password || !formData.confirmPassword || !agreedToTerms) && 
+                styles.createAccountButtonDisabled
+              ]} 
+              onPress={handleCreateAccount}
+              disabled={!formData.email || !formData.password || !formData.confirmPassword || !agreedToTerms}
             >
               <Text style={styles.createAccountText}>Create Account</Text>
             </TouchableOpacity>
 
-    
+          
             <View style={styles.orContainer}>
               <View style={styles.orLine} />
               <Text style={styles.orText}>OR</Text>
               <View style={styles.orLine} />
             </View>
 
-           
+            
             <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignUp}>
-               <Image source = {require ('../assets/images/playstore.png')}
-                             style = {styles.playImage}/>
+              <Image 
+                source={require('../assets/images/playstore.png')}
+                style={styles.playImage}
+              />
               <Text style={styles.googleButtonText}>Google</Text>
             </TouchableOpacity>
 
-           
+         
             <View style={styles.loginContainer}>
               <Text style={styles.loginText}>Already have an account? </Text>
               <TouchableOpacity onPress={handleLogin}>
@@ -237,8 +289,6 @@ const BuyerSignUpScreen = () => {
               </TouchableOpacity>
             </View>
           </View>
-
-          
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -250,27 +300,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-
+  
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomColor: '#E9ECEF',
+    paddingTop: 16,
+    paddingBottom: 12,
   },
-  headerText: {
-        marginRight:10
-    },
- backButton: {
-    padding: 8,
-   bottom: -45,
-  right: 10
+  topSection: {
+    marginBottom: 16,
   },
   logoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    right: 150
   },
   logo: {
     width: 40,
@@ -278,29 +319,41 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight:8,
-    
-  
+    marginRight: 10, 
   },
   logoImage: {
-    width: 150,
-    height: 150,
-    marginLeft:90,
-    marginTop:30
+    width: 201,
+    height: 201,
+    left: 40,
+    top:15
+  },
+  headerText: {
+    alignItems: 'flex-start',
+    left:-10,
+    top:-4
   },
   appName: {
-    fontSize: 18,
-    fontWeight: 600,
+    fontSize: 20,
+    fontWeight: '600',
     color: '#007A44',
-    marginRight:10
   },
   country: {
     fontSize: 13,
     color: '#007A44',
-    fontWeight: 500
+    fontWeight: '500'
   },
-  headerSpacer: {
-    width: 32,
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
+    alignSelf: 'flex-start',
+    marginLeft: -8, 
+  },
+  backText: {
+    fontSize: 16,
+    color: '#2D5A3D',
+    marginLeft: 8,
+    fontWeight: '500',
   },
   keyboardAvoid: {
     flex: 1,
@@ -428,6 +481,10 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 3,
   },
+  createAccountButtonDisabled: {
+    backgroundColor: '#A0A0A0',
+    opacity: 0.6,
+  },
   createAccountText: {
     fontSize: 16,
     fontWeight: '600',
@@ -464,7 +521,6 @@ const styles = StyleSheet.create({
   playImage: {
     width: 20,
     height: 20,
-   
   },
   googleButtonText: {
     fontSize: 16,
@@ -487,18 +543,6 @@ const styles = StyleSheet.create({
     color: '#2D5A3D',
     fontWeight: '600',
   },
-  attribution: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 20,
-    paddingHorizontal: 10,
-  },
-  attributionText: {
-    fontSize: 12,
-    color: '#999',
-  },
-  
 });
 
 export default BuyerSignUpScreen;

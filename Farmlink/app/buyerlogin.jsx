@@ -13,10 +13,10 @@ import {
   Alert
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import {  useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const LoginScreen = () => {
+const BuyerLoginScreen = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -25,6 +25,7 @@ const LoginScreen = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -38,9 +39,9 @@ const LoginScreen = () => {
     Alert.alert('Success', 'Login successful!');
     console.log('Login data:', formData);
     console.log('Remember me:', rememberMe);
-     router.push('Home')
+     router.push('Home');
     
-    // API call here
+    //API call here
   };
 
   const handleGoogleLogin = () => {
@@ -50,12 +51,12 @@ const LoginScreen = () => {
 
   
   const handleForgotPassword = () => {
-    
-   router.push('forgot-password');
+ 
+   router.push('ForgotPassword');
   };
 
   const handleSignUp = () => {
-   
+    
     router.push('buyersignup');
   };
 
@@ -72,6 +73,7 @@ const LoginScreen = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
         >
+          
           <View style={styles.logoSection}>
             <View style={styles.logoContainer}>
               <View style={styles.logo}>
@@ -85,7 +87,7 @@ const LoginScreen = () => {
             </View>
           </View>
 
-          
+         
           <View style={styles.titleSection}>
             <Text style={styles.title}>Welcome Back</Text>
             <Text style={styles.subtitle}>
@@ -93,7 +95,7 @@ const LoginScreen = () => {
             </Text>
           </View>
 
-       
+          
           <View style={styles.formContainer}>
            
             <View style={styles.inputGroup}>
@@ -109,7 +111,7 @@ const LoginScreen = () => {
               />
             </View>
 
-         
+            
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Password</Text>
               <View style={styles.passwordInputContainer}>
@@ -134,6 +136,7 @@ const LoginScreen = () => {
               </View>
             </View>
 
+           
             <View style={styles.rememberForgotContainer}>
               <TouchableOpacity 
                 style={styles.rememberContainer}
@@ -169,7 +172,7 @@ const LoginScreen = () => {
               <Text style={styles.googleButtonText}>Google</Text>
             </TouchableOpacity>
 
-           
+            
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>Don't have an account ? </Text>
               <TouchableOpacity onPress={handleSignUp}>
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 40,
   },
-
+  
   logoSection: {
     alignItems: 'center',
     marginBottom: 30,
@@ -334,14 +337,14 @@ const styles = StyleSheet.create({
   },
   forgotPasswordText: {
     fontSize: 14,
-    color: '#2D5A3D',
+    color: '#BA1A20',
     fontWeight: '600',
   },
   loginButton: {
     backgroundColor: '#2D5A3D',
     paddingHorizontal: 32,
     paddingVertical: 16,
-    borderRadius: 25,
+    borderRadius: 8,
     alignItems: 'center',
     marginBottom: 16,
     shadowColor: '#000',
@@ -370,7 +373,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#E9ECEF',
-    borderRadius: 25,
+    borderRadius: 8,
     paddingHorizontal: 32,
     paddingVertical: 14,
     backgroundColor: '#fff',
@@ -415,4 +418,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default BuyerLoginScreen;
